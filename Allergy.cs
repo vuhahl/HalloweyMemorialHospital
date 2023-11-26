@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace HalloweyMemorialHospital
 {
-    public partial class Form1 : Form
+    public partial class Allergy : Form
     {
-        public Form1()
+        public Allergy()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
