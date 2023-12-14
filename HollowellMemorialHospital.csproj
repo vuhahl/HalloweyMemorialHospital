@@ -119,6 +119,7 @@
     <Compile Include="Allergy.Designer.cs">
       <DependentUpon>Allergy.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllergyProperties.cs" />
     <Compile Include="DBInteraction.cs" />
     <Compile Include="Meds.cs" />
     <Compile Include="Medications.cs">

@@ -137,7 +137,7 @@ namespace HalloweyMemorialHospital
         // filling text boxes - patient demo
         public static void AddPatientParam(MySqlCommand cmd, Patient patient)
         {
-            
+            cmd.Parameters.Add("@PatientIDParam", MySqlDbType.VarChar).Value = patient.PID;
             cmd.Parameters.Add("@HospitalMRParam", MySqlDbType.VarChar).Value = patient.HospitalMR;
             cmd.Parameters.Add("@PtLastNameParam", MySqlDbType.VarChar).Value = patient.LastName;
             cmd.Parameters.Add("@PtPreviousLastNameParam", MySqlDbType.VarChar).Value = patient.PreviousLName;
@@ -352,7 +352,100 @@ namespace HalloweyMemorialHospital
             cmd.Parameters.AddWithValue("@MedicationEndDateParam", medication.MedEnd);
             cmd.Parameters.AddWithValue("@PrescriptionHCPParam", medication.Prescription);
         }
-    }
+
+        public static int SoftDeleteAllergy(MySqlConnection connection, int AllerID)
+        {
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand("SoftDeleteAllergySP", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Update the IsDeleted parameter to 1
+                    cmd.Parameters.AddWithValue("@AllergyIDParam", AllerID);
+                    cmd.Parameters.AddWithValue("@IsDeletedParam", 1);
+
+                    // Execute the query
+                    int recordsUpdated = cmd.ExecuteNonQuery();
+                    return recordsUpdated;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SoftDeleteAllergy: {ex.Message}");
+                throw;
+            }
+        }
+
+        //inserting new allergy record
+        public static int InsertAllergySP(MySqlConnection connection, AllergyProperties allergies)
+        {
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand("InsertAllergySP", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameters
+                    AddAllergyParam(cmd, allergies);
+
+                    // Execute the query
+                    int recordsAffected = cmd.ExecuteNonQuery();
+                    return recordsAffected;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in InsertAllergySP: {ex.Message}");
+                throw;
+            }
+        }
+
+        public static void AddAllergyParam(MySqlCommand cmd, AllergyProperties allergies)
+        {
+            cmd.Parameters.Add("@AllergyIDParam", MySqlDbType.Int32).Value = allergies.AllergyID;
+            cmd.Parameters.Add("@PIDParam", MySqlDbType.Int32).Value = allergies.PID;
+            cmd.Parameters.Add("@AllergenParam", MySqlDbType.VarChar).Value = allergies.Allergen;
+            cmd.Parameters.Add("@AllergyStartDateParam", MySqlDbType.VarChar).Value = allergies.AllergyStart;
+            cmd.Parameters.Add("@AllergyEndDateParam", MySqlDbType.VarChar).Value = allergies.AllergyEnd;
+            cmd.Parameters.Add("@ADescriptionParam", MySqlDbType.VarChar).Value = allergies.Description;
+
+        }
+
+        public static int UpdateAllergySP(MySqlConnection connection, AllergyProperties allergies)
+        {
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand("UpdateAllergySP", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameters
+                    AddAllergyUpdateParam(cmd, allergies);
+
+                    // Execute the query
+                    int recordsUpdated = cmd.ExecuteNonQuery();
+                    return recordsUpdated;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in UpdateAllergySP: {ex.Message}");
+                throw;
+            }
+        }
+
+        public static void AddAllergyUpdateParam(MySqlCommand cmd, AllergyProperties allergies)
+        {
+            cmd.Parameters.AddWithValue("@AllergyIDParam", allergies.AllergyID);
+            cmd.Parameters.AddWithValue("@PIDParam", allergies.PID);
+            cmd.Parameters.AddWithValue("@AllergenParam", allergies.Allergen);
+            cmd.Parameters.AddWithValue("@AllergyStartDateParam", allergies.AllergyStart);
+            cmd.Parameters.AddWithValue("@AllergyEndDateParam", allergies.AllergyEnd);
+            cmd.Parameters.AddWithValue("@ADescriptionParam", allergies.Description);
+        }
 
     }
+
+}
 

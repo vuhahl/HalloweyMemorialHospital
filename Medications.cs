@@ -98,6 +98,7 @@ namespace HalloweyMemorialHospital
         private void PopulateTextboxes(DataRow medicationRow)
         {
             // Populate textboxes with patient data
+            txtPID.Text = medicationRow["PatientID"].ToString();
             txtMedID.Text = medicationRow["MedicationID"].ToString();
             txtMedID.Text = medicationRow["PatientID"].ToString();
             txtMedications.Text = medicationRow["Medication"].ToString();
@@ -112,6 +113,7 @@ namespace HalloweyMemorialHospital
 
         private void ClearTextboxes()
         {
+            txtPID.Clear();
             txtMedID.Clear();
             txtPID.Clear();
             txtMedications.Clear();
@@ -136,7 +138,7 @@ namespace HalloweyMemorialHospital
             btnUndo.Visible = true;
             btnExitMode.Visible = true;
 
-
+            ClearTextboxes();
             SetControlstoReadOnly(false);
         }
 
@@ -277,6 +279,7 @@ namespace HalloweyMemorialHospital
 
                         // Refresh the DataGridView after the update
                         PopulatePatientData();
+                        SetControlstoReadOnly(true);
                     }
                     catch (Exception ex)
                     {
@@ -328,6 +331,41 @@ namespace HalloweyMemorialHospital
 
                 // Set controls back to read-only state
                 SetControlstoReadOnly(true);
+            }
+        }
+
+        private void btnGoToPDemo_Click(object sender, EventArgs e)
+        {
+            if (patientID > 0)
+            {
+                // Open PdemoForm and pass patientID
+                PatientDemo pdemoForm = new PatientDemo(patientID);
+                pdemoForm.PopulatePatientData(patientID);  // method to populate medication data
+                pdemoForm.Show();
+
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Please select a patient first.");
+            }
+        }
+
+        private void btnGoToAllergy_Click(object sender, EventArgs e)
+        {
+            //AllergyForm class
+            if (patientID > 0)
+            {
+                // Open MedicationsForm and pass patientID
+                Allergy allergyForm = new Allergy(patientID);
+                allergyForm.PopulatePatientData();  // method to populate medication data
+                allergyForm.Show();
+
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Please select a patient first.");
             }
         }
     }

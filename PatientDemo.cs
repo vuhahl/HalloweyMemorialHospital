@@ -200,12 +200,81 @@ namespace HalloweyMemorialHospital
             this.Close();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e) // SAVE AND INSERT BUTTON
         {
-            //save and insert
-            if (isOnMode) // Check if in Add/Modify mode
+            if (!string.IsNullOrEmpty(txtHospitalMR.Text) &&
+                !string.IsNullOrEmpty(txtLastName.Text) &&
+                !string.IsNullOrEmpty(txtFirstName.Text) &&
+                !string.IsNullOrEmpty(txtHomePhone.Text) &&
+                !string.IsNullOrEmpty(txtEmergencyPhone.Text) &&
+                !string.IsNullOrEmpty(txtEmail.Text) &&
+                !string.IsNullOrEmpty(txtDOB.Text))
             {
-                SaveOrUpdatePatient();
+                using (MySqlConnection conn = DBInteraction.MakeConnnection())
+                {
+                    Patient p = new Patient()
+                    {
+                        PID = txtPID.Text,
+                        HospitalMR = txtHospitalMR.Text,
+                        LastName = txtLastName.Text,
+                        FirstName = txtFirstName.Text,
+                        MiddleInitial = txtMiddeName.Text,
+                        Suffix = txtSuffix.Text,
+                        HomeAddress = txtHomeAdd.Text,
+                        HomeCity = txtHomeCity.Text,
+                        StateProvinceRegion = txtState.Text,
+                        HomeZip = txtHomeZip.Text,
+                        Country = txtCountry.Text,
+                        Citizenship = txtCitizen.Text,
+                        HomePhone = txtHomePhone.Text,
+                        EmergencyPhoneNumber = txtEmergencyPhone.Text,
+                        Email = txtEmail.Text,
+                        SSN = txtSSN.Text,
+                        DOB = txtDOB.Text,
+                        Gender = txtGender.Text,
+                        EthnicAssociation = txtEthnicAssoc.Text,
+                        Religion = txtReligion.Text,
+                        MaritalStatus = txtMaritalStat.Text,
+                        EmploymentStatus = txtEmploymentStat.Text,
+                        DateofExpire = txtDateofExpire.Text,
+                        Referral = txtReferral.Text,
+                        CurrentPrimaryHCPId = txtHCPID.Text,
+                        Comments = txtComments.Text,
+                        DateEntered = txtDateEntered.Text,
+                        NextOfKinId = txtNextofKin.Text,
+                        NextOfKinRelationship = txtNOKRelation.Text
+
+                    };
+
+                    try
+                    {
+                        if (isAddMode)
+                        {
+                            // Insert the patient record
+                            int recsInserted = DBInteraction.InsertPatientSP(conn, p);
+                            MessageBox.Show($"Inserted {recsInserted} records into PatientDemo!");
+                        }
+                        else
+                        {
+                            // Update the patient record
+                            int recsUpdated = DBInteraction.UpdatePatientSP(conn, p);
+                            MessageBox.Show($"Updated {recsUpdated} records in PatientDemo!");
+                        }
+
+                        // Refresh the DataGridView after the update
+                        PopulatePatientData(selectedPatientID);
+                        SetControlstoReadOnly(true);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error! {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter required information.");
             }
         }
 
@@ -416,85 +485,6 @@ namespace HalloweyMemorialHospital
             }
         }
 
-
-        private void SaveOrUpdatePatient()
-        {
-            if (!string.IsNullOrEmpty(txtHospitalMR.Text) &&
-                !string.IsNullOrEmpty(txtLastName.Text) &&
-                !string.IsNullOrEmpty(txtFirstName.Text) &&
-                !string.IsNullOrEmpty(txtHomePhone.Text) &&
-                !string.IsNullOrEmpty(txtEmergencyPhone.Text) &&
-                !string.IsNullOrEmpty(txtEmail.Text) &&
-                !string.IsNullOrEmpty(txtDOB.Text))
-            {
-                using (MySqlConnection conn = DBInteraction.MakeConnnection())
-                {
-                    Patient p = new Patient()
-                    {
-                        HospitalMR = txtHospitalMR.Text,
-                        LastName = txtLastName.Text,
-                        FirstName = txtFirstName.Text,
-                        MiddleInitial = txtMiddeName.Text,
-                        Suffix = txtSuffix.Text,
-                        HomeAddress = txtHomeAdd.Text,
-                        HomeCity = txtHomeCity.Text,
-                        StateProvinceRegion = txtState.Text,
-                        HomeZip = txtHomeZip.Text,
-                        Country = txtCountry.Text,
-                        Citizenship = txtCitizen.Text,
-                        HomePhone = txtHomePhone.Text,
-                        EmergencyPhoneNumber = txtEmergencyPhone.Text,
-                        Email = txtEmail.Text,
-                        SSN = txtSSN.Text,
-                        DOB = txtDOB.Text,
-                        Gender = txtGender.Text,
-                        EthnicAssociation = txtEthnicAssoc.Text,
-                        Religion = txtReligion.Text,
-                        MaritalStatus = txtMaritalStat.Text,
-                        EmploymentStatus = txtEmploymentStat.Text,
-                        DateofExpire = txtDateofExpire.Text,
-                        Referral = txtReferral.Text,
-                        CurrentPrimaryHCPId = txtHCPID.Text,
-                        Comments = txtComments.Text,
-                        DateEntered = txtDateEntered.Text,
-                        NextOfKinId = txtNextofKin.Text,
-                        NextOfKinRelationship = txtNOKRelation.Text
-
-                    };
-
-                    try
-                    {
-                        if (isAddMode)
-                        {
-                            // Insert the patient record
-                            int recsInserted = DBInteraction.InsertPatientSP(conn, p);
-                            MessageBox.Show($"Inserted {recsInserted} records into PatientDemo!");
-                        }
-                        else
-                        {
-                            // Update the patient record
-                            int recsUpdated = DBInteraction.UpdatePatientSP(conn, p);
-                            MessageBox.Show($"Updated {recsUpdated} records in PatientDemo!");
-                        }
-
-                        // Refresh the DataGridView after the update
-                        PopulatePatientData(selectedPatientID);
-
-                        
-                       
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error! {ex.Message}");
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please enter required information.");
-            }
-        }
 
         private void btnGoToMeds_Click(object sender, EventArgs e)
         {

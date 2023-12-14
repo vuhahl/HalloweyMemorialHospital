@@ -42,6 +42,14 @@
             this.btnAddMode = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.txtPID = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.btnExitMode = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -61,15 +69,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txtPID = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -125,6 +125,7 @@
             this.btnGoToAllergy.TabIndex = 1;
             this.btnGoToAllergy.Text = "Go To Allergies";
             this.btnGoToAllergy.UseVisualStyleBackColor = true;
+            this.btnGoToAllergy.Click += new System.EventHandler(this.btnGoToAllergy_Click);
             // 
             // btnGoToPDemo
             // 
@@ -134,6 +135,7 @@
             this.btnGoToPDemo.TabIndex = 0;
             this.btnGoToPDemo.Text = "Go To Patient Demographics";
             this.btnGoToPDemo.UseVisualStyleBackColor = true;
+            this.btnGoToPDemo.Click += new System.EventHandler(this.btnGoToPDemo_Click);
             // 
             // panel2
             // 
@@ -241,6 +243,88 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(447, 205);
             this.panel4.TabIndex = 9;
+            // 
+            // txtPID
+            // 
+            this.txtPID.Location = new System.Drawing.Point(95, 38);
+            this.txtPID.Name = "txtPID";
+            this.txtPID.Size = new System.Drawing.Size(108, 20);
+            this.txtPID.TabIndex = 66;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(32, 41);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(54, 13);
+            this.label17.TabIndex = 65;
+            this.label17.Text = "PatientID:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.Red;
+            this.label16.Location = new System.Drawing.Point(-3, 91);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(12, 16);
+            this.label16.TabIndex = 64;
+            this.label16.Text = "*";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Location = new System.Drawing.Point(286, 79);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(12, 15);
+            this.label15.TabIndex = 63;
+            this.label15.Text = "*";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.Red;
+            this.label14.Location = new System.Drawing.Point(209, 16);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(12, 15);
+            this.label14.TabIndex = 62;
+            this.label14.Text = "*";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(13, 143);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(12, 16);
+            this.label13.TabIndex = 61;
+            this.label13.Text = "*";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.Red;
+            this.label12.Location = new System.Drawing.Point(-3, 117);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(12, 16);
+            this.label12.TabIndex = 60;
+            this.label12.Text = "*";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.ForeColor = System.Drawing.Color.Red;
+            this.label35.Location = new System.Drawing.Point(13, 66);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(12, 16);
+            this.label35.TabIndex = 58;
+            this.label35.Text = "*";
             // 
             // btnExitMode
             // 
@@ -405,17 +489,6 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "MedicationID:";
             // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.ForeColor = System.Drawing.Color.Red;
-            this.label35.Location = new System.Drawing.Point(13, 66);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(12, 16);
-            this.label35.TabIndex = 58;
-            this.label35.Text = "*";
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -426,77 +499,6 @@
             this.label11.Size = new System.Drawing.Size(12, 16);
             this.label11.TabIndex = 59;
             this.label11.Text = "*";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(-3, 117);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(12, 16);
-            this.label12.TabIndex = 60;
-            this.label12.Text = "*";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(13, 143);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(12, 16);
-            this.label13.TabIndex = 61;
-            this.label13.Text = "*";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.Red;
-            this.label14.Location = new System.Drawing.Point(209, 16);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(12, 15);
-            this.label14.TabIndex = 62;
-            this.label14.Text = "*";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.Red;
-            this.label15.Location = new System.Drawing.Point(286, 79);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(12, 15);
-            this.label15.TabIndex = 63;
-            this.label15.Text = "*";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.Red;
-            this.label16.Location = new System.Drawing.Point(-3, 91);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(12, 16);
-            this.label16.TabIndex = 64;
-            this.label16.Text = "*";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(32, 41);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(54, 13);
-            this.label17.TabIndex = 65;
-            this.label17.Text = "PatientID:";
-            // 
-            // txtPID
-            // 
-            this.txtPID.Location = new System.Drawing.Point(95, 38);
-            this.txtPID.Name = "txtPID";
-            this.txtPID.Size = new System.Drawing.Size(108, 20);
-            this.txtPID.TabIndex = 66;
             // 
             // Medications
             // 
