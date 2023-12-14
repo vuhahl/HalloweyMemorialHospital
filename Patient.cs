@@ -8,6 +8,7 @@ namespace HollowellMemorialHospital
 {
    public class Patient
         {
+        public string PID { get; set; }
             public string HospitalMR { get; set; }
             public string LastName { get; set; }
         public string PreviousLName { get; set; }
@@ -37,7 +38,9 @@ namespace HollowellMemorialHospital
             public string DateEntered { get; set; }
             public string NextOfKinId { get; set; }
             public string NextOfKinRelationship { get; set; }
-        }
+
+            public int IsDeleted { get; set; }
+    }
 
     }
 

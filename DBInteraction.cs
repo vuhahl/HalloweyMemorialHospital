@@ -26,7 +26,7 @@ namespace HalloweyMemorialHospital
         public static DataTable GetAllPatients(MySqlConnection conn)
         {
             string SQLquery = "SELECT PatientID, PtFirstName, PtLastName, DOB, PtHomePhone,  Gender " +
-                "FROM patientdemo";
+                "FROM patientdemo WHERE IsDeleted = 0";
             DataTable dt = new DataTable();
 
             MySqlDataAdapter da = new MySqlDataAdapter();
@@ -42,7 +42,7 @@ namespace HalloweyMemorialHospital
 
             try
             {
-                using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM PatientDemo WHERE PatientID = @PatientID", connection))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM PatientDemo WHERE PatientID = @PatientID AND IsDeleted = 0 ;", connection))
                 {
                     cmd.Parameters.AddWithValue("@PatientID", patientID);
 
@@ -60,6 +60,57 @@ namespace HalloweyMemorialHospital
             return patientData;
         }
 
+        // get MEDICATION DATA BY PATIENT ID
+        public static DataTable GetMedicationDataById(MySqlConnection connection, int patientID)
+        {
+            DataTable medicationData = new DataTable();
+
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM pmedications WHERE PatientID = @PatientID", connection))
+                {
+                    cmd.Parameters.AddWithValue("@PatientID", patientID);
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(medicationData);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetMedicationDataById: {ex.Message}");
+            }
+
+            return medicationData;
+        }
+
+        //get allergy data by patient id
+        public static DataTable GetAllergyDataById(MySqlConnection connection, int patientID)
+        {
+            DataTable allergyData = new DataTable();
+
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM allergyhist WHERE PatientID = @PatientID", connection))
+                {
+                    cmd.Parameters.AddWithValue("@PatientID", patientID);
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(allergyData);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllergyDataById: {ex.Message}");
+            }
+
+            return allergyData;
+        }
+
+        // insert patient in add mode
         public static int InsertPatientSP(MySqlConnection connection, Patient patient)
         {
             try
@@ -83,9 +134,10 @@ namespace HalloweyMemorialHospital
             }
         }
 
-
+        // filling text boxes - patient demo
         public static void AddPatientParam(MySqlCommand cmd, Patient patient)
         {
+            
             cmd.Parameters.Add("@HospitalMRParam", MySqlDbType.VarChar).Value = patient.HospitalMR;
             cmd.Parameters.Add("@PtLastNameParam", MySqlDbType.VarChar).Value = patient.LastName;
             cmd.Parameters.Add("@PtPreviousLastNameParam", MySqlDbType.VarChar).Value = patient.PreviousLName;
@@ -118,19 +170,17 @@ namespace HalloweyMemorialHospital
 
 
         }
-        // for modify mode 
-        public static int UpdatePatientRecord(MySqlConnection connection, Patient patient)
+        // PATIENT DEMO for modify mode - updating patient 
+        public static int UpdatePatientSP(MySqlConnection connection, Patient patient)
         {
             try
             {
-                using (MySqlCommand cmd = new MySqlCommand("UpdatePatientRecord", connection))
+                using (MySqlCommand cmd = new MySqlCommand("UpdatePatientSP", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     // Add parameters
-                    AddPatientParam(cmd, patient);
-
-                    // Execute the query
+                    AddPatientUpdateParam(cmd, patient);
                     int recordsUpdated = cmd.ExecuteNonQuery();
                     return recordsUpdated;
                 }
@@ -142,7 +192,167 @@ namespace HalloweyMemorialHospital
             }
         }
 
+        // modify mode 
+        public static void AddPatientUpdateParam(MySqlCommand cmd, Patient patient)
+        {
+            cmd.Parameters.AddWithValue("@PatientIDParam", patient.PID);
+            cmd.Parameters.AddWithValue("@HospitalMRParam", patient.HospitalMR);
+            cmd.Parameters.AddWithValue("@PtLastNameParam", patient.LastName);
+            cmd.Parameters.AddWithValue("@PtPreviousLastNameParam", patient.PreviousLName);
+            cmd.Parameters.AddWithValue("@PtFirstNameParam", patient.FirstName);
+            cmd.Parameters.AddWithValue("@PtMiddleInitialParam", patient.MiddleInitial);
+            cmd.Parameters.AddWithValue("@SuffixParam", patient.Suffix);
+            cmd.Parameters.AddWithValue("@HomeAddressParam", patient.HomeAddress);
+            cmd.Parameters.AddWithValue("@HomeCityParam", patient.HomeCity);
+            cmd.Parameters.AddWithValue("@StateProvinceRegionParam", patient.StateProvinceRegion);
+            cmd.Parameters.AddWithValue("@HomeZipParam", patient.HomeZip);
+            cmd.Parameters.AddWithValue("@CountryParam", patient.Country);
+            cmd.Parameters.AddWithValue("@CitizenshipParam", patient.Citizenship);
+            cmd.Parameters.AddWithValue("@PtHomePhoneParam", patient.HomePhone);
+            cmd.Parameters.AddWithValue("@EmergencyPhoneNumberParam", patient.EmergencyPhoneNumber);
+            cmd.Parameters.AddWithValue("@EmailAddressParam", patient.Email);
+            cmd.Parameters.AddWithValue("@SSNParam", patient.SSN);
+            cmd.Parameters.AddWithValue("@DOBParam", patient.DOB);
+            cmd.Parameters.AddWithValue("@GenderParam", patient.Gender);
+            cmd.Parameters.AddWithValue("@EthnicAssociationParam", patient.EthnicAssociation);
+            cmd.Parameters.AddWithValue("@ReligionParam", patient.Religion);
+            cmd.Parameters.AddWithValue("@MaritalStatusParam", patient.MaritalStatus);
+            cmd.Parameters.AddWithValue("@EmploymentStatusParam", patient.EmploymentStatus);
+            cmd.Parameters.AddWithValue("@DateofExpireParam", patient.DateofExpire);
+            cmd.Parameters.AddWithValue("@ReferralParam", patient.Referral);
+            cmd.Parameters.AddWithValue("@CurrentPrimaryHCPIdParam", patient.CurrentPrimaryHCPId);
+            cmd.Parameters.AddWithValue("@CommentsParam", patient.Comments);
+            cmd.Parameters.AddWithValue("@DateEnteredParam", patient.DateEntered);
+            cmd.Parameters.AddWithValue("@NextOfKinIdParam", patient.NextOfKinId);
+            cmd.Parameters.AddWithValue("@NextOfKinRelationshipToPatientParam", patient.NextOfKinRelationship);
+            
+        }
+
+        //delete mode for patient demo 
+        public static int SoftDeletePatient(MySqlConnection connection, int PID)
+        {
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand("SoftDeletePatientSP", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Update the IsDeleted parameter to 1
+                    cmd.Parameters.AddWithValue("@PatientIDParam", PID);
+                    cmd.Parameters.AddWithValue("@IsDeletedParam", 1);
+
+                    // Execute the query
+                    int recordsUpdated = cmd.ExecuteNonQuery();
+                    return recordsUpdated;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SoftDeleteMedication: {ex.Message}");
+                throw;
+            }
+        }
+
+        // delete mode for medication class 
+        public static int SoftDeleteMedication(MySqlConnection connection, int medID)
+        {
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand("SoftDeleteMedicationSP", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Update the IsDeleted parameter to 1
+                    cmd.Parameters.AddWithValue("@MedicationIDParam", medID);
+                    cmd.Parameters.AddWithValue("@IsDeletedParam", 1);
+
+                    // Execute the query
+                    int recordsUpdated = cmd.ExecuteNonQuery();
+                    return recordsUpdated;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SoftDeleteMedication: {ex.Message}");
+                throw;
+            }
+        }
+
+
+        //inserting new medication record
+        public static int InsertMedicationSP(MySqlConnection connection, Meds medication)
+        {
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand("InsertMedicationSP", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameters
+                    AddMedicationParam(cmd, medication);
+
+                    // Execute the query
+                    int recordsAffected = cmd.ExecuteNonQuery();
+                    return recordsAffected;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in InsertMedicationSP: {ex.Message}");
+                throw;
+            }
+        }
+
+        public static void AddMedicationParam(MySqlCommand cmd, Meds medication)
+        {
+            cmd.Parameters.Add("@MedicationIDParam", MySqlDbType.VarChar).Value = medication.PID;
+            cmd.Parameters.Add("@PIDParam", MySqlDbType.VarChar).Value = medication.PID;
+            cmd.Parameters.Add("@MedicationParam", MySqlDbType.VarChar).Value = medication.MedName;
+            cmd.Parameters.Add("@MedicationAmtParam", MySqlDbType.VarChar).Value = medication.MedAMT;
+            cmd.Parameters.Add("@MedicationUnitParam", MySqlDbType.VarChar).Value = medication.MedUnit;
+            cmd.Parameters.Add("@InstructionsParam", MySqlDbType.VarChar).Value = medication.Instructions;
+            cmd.Parameters.Add("@MedicationStartDateParam", MySqlDbType.VarChar).Value = medication.MedStart;
+            cmd.Parameters.Add("@MedicationEndDateParam", MySqlDbType.VarChar).Value = medication.MedEnd;
+            cmd.Parameters.Add("@PrescriptionHCPParam", MySqlDbType.VarChar).Value = medication.Prescription;
+            
+        }
+
+        public static int UpdateMedicationSP(MySqlConnection connection, Meds medication)
+        {
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand("UpdateMedicationSP", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameters
+                    AddMedicationUpdateParam(cmd, medication);
+
+                    // Execute the query
+                    int recordsUpdated = cmd.ExecuteNonQuery();
+                    return recordsUpdated;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in UpdateMedicationSP: {ex.Message}");
+                throw;
+            }
+        }
+
+        public static void AddMedicationUpdateParam(MySqlCommand cmd, Meds medication)
+        {
+            cmd.Parameters.AddWithValue("@MedicationIDParam", medication.MedID);
+            cmd.Parameters.AddWithValue("@PIDParam", medication.PID);
+            cmd.Parameters.AddWithValue("@MedicationParam", medication.MedName);
+            cmd.Parameters.AddWithValue("@MedicationAmtParam", medication.MedAMT);
+            cmd.Parameters.AddWithValue("@MedicationUnitParam", medication.MedUnit);
+            cmd.Parameters.AddWithValue("@InstructionsParam", medication.Instructions);
+            cmd.Parameters.AddWithValue("@MedicationStartDateParam", medication.MedStart);
+            cmd.Parameters.AddWithValue("@MedicationEndDateParam", medication.MedEnd);
+            cmd.Parameters.AddWithValue("@PrescriptionHCPParam", medication.Prescription);
+        }
     }
 
-}
+    }
 
