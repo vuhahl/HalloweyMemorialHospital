@@ -42,9 +42,14 @@
             this.btnAddMode = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtPID = new System.Windows.Forms.TextBox();
+            this.btnUndo = new System.Windows.Forms.Button();
+            this.btnExitMode = new System.Windows.Forms.Button();
             this.txtAllergyEnd = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtAllergyStart = new System.Windows.Forms.TextBox();
+            this.btnSaveandInsert = new System.Windows.Forms.Button();
             this.txtAllergyDescription = new System.Windows.Forms.TextBox();
             this.txtAllergen = new System.Windows.Forms.TextBox();
             this.txtAllergyID = new System.Windows.Forms.TextBox();
@@ -52,11 +57,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnUndo = new System.Windows.Forms.Button();
-            this.btnSaveandInsert = new System.Windows.Forms.Button();
-            this.btnExitMode = new System.Windows.Forms.Button();
-            this.txtPID = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -96,9 +96,9 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(68, 117);
+            this.dataGridView1.Location = new System.Drawing.Point(69, 99);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(498, 60);
+            this.dataGridView1.Size = new System.Drawing.Size(498, 91);
             this.dataGridView1.TabIndex = 6;
             // 
             // panel2
@@ -217,6 +217,45 @@
             this.panel4.Size = new System.Drawing.Size(439, 198);
             this.panel4.TabIndex = 10;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 176);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "PatientID:";
+            // 
+            // txtPID
+            // 
+            this.txtPID.Location = new System.Drawing.Point(66, 171);
+            this.txtPID.Name = "txtPID";
+            this.txtPID.Size = new System.Drawing.Size(108, 20);
+            this.txtPID.TabIndex = 35;
+            this.txtPID.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // btnUndo
+            // 
+            this.btnUndo.Location = new System.Drawing.Point(317, 171);
+            this.btnUndo.Name = "btnUndo";
+            this.btnUndo.Size = new System.Drawing.Size(52, 22);
+            this.btnUndo.TabIndex = 9;
+            this.btnUndo.Text = "Undo";
+            this.btnUndo.UseVisualStyleBackColor = true;
+            this.btnUndo.Visible = false;
+            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
+            // 
+            // btnExitMode
+            // 
+            this.btnExitMode.Location = new System.Drawing.Point(375, 171);
+            this.btnExitMode.Name = "btnExitMode";
+            this.btnExitMode.Size = new System.Drawing.Size(62, 22);
+            this.btnExitMode.TabIndex = 34;
+            this.btnExitMode.Text = "Exit Mode";
+            this.btnExitMode.UseVisualStyleBackColor = true;
+            this.btnExitMode.Visible = false;
+            this.btnExitMode.Click += new System.EventHandler(this.btnExitMode_Click);
+            // 
             // txtAllergyEnd
             // 
             this.txtAllergyEnd.Location = new System.Drawing.Point(98, 89);
@@ -239,6 +278,18 @@
             this.txtAllergyStart.Name = "txtAllergyStart";
             this.txtAllergyStart.Size = new System.Drawing.Size(108, 20);
             this.txtAllergyStart.TabIndex = 9;
+            // 
+            // btnSaveandInsert
+            // 
+            this.btnSaveandInsert.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnSaveandInsert.Location = new System.Drawing.Point(331, 140);
+            this.btnSaveandInsert.Name = "btnSaveandInsert";
+            this.btnSaveandInsert.Size = new System.Drawing.Size(94, 25);
+            this.btnSaveandInsert.TabIndex = 30;
+            this.btnSaveandInsert.Text = "Save and Insert";
+            this.btnSaveandInsert.UseVisualStyleBackColor = false;
+            this.btnSaveandInsert.Visible = false;
+            this.btnSaveandInsert.Click += new System.EventHandler(this.btnSaveandInsert_Click);
             // 
             // txtAllergyDescription
             // 
@@ -297,57 +348,6 @@
             this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Allergy ID #";
-            // 
-            // btnUndo
-            // 
-            this.btnUndo.Location = new System.Drawing.Point(317, 171);
-            this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(52, 22);
-            this.btnUndo.TabIndex = 9;
-            this.btnUndo.Text = "Undo";
-            this.btnUndo.UseVisualStyleBackColor = true;
-            this.btnUndo.Visible = false;
-            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
-            // 
-            // btnSaveandInsert
-            // 
-            this.btnSaveandInsert.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnSaveandInsert.Location = new System.Drawing.Point(331, 140);
-            this.btnSaveandInsert.Name = "btnSaveandInsert";
-            this.btnSaveandInsert.Size = new System.Drawing.Size(94, 25);
-            this.btnSaveandInsert.TabIndex = 30;
-            this.btnSaveandInsert.Text = "Save and Insert";
-            this.btnSaveandInsert.UseVisualStyleBackColor = false;
-            this.btnSaveandInsert.Visible = false;
-            this.btnSaveandInsert.Click += new System.EventHandler(this.btnSaveandInsert_Click);
-            // 
-            // btnExitMode
-            // 
-            this.btnExitMode.Location = new System.Drawing.Point(375, 171);
-            this.btnExitMode.Name = "btnExitMode";
-            this.btnExitMode.Size = new System.Drawing.Size(62, 22);
-            this.btnExitMode.TabIndex = 34;
-            this.btnExitMode.Text = "Exit Mode";
-            this.btnExitMode.UseVisualStyleBackColor = true;
-            this.btnExitMode.Visible = false;
-            this.btnExitMode.Click += new System.EventHandler(this.btnExitMode_Click);
-            // 
-            // txtPID
-            // 
-            this.txtPID.Location = new System.Drawing.Point(66, 171);
-            this.txtPID.Name = "txtPID";
-            this.txtPID.Size = new System.Drawing.Size(108, 20);
-            this.txtPID.TabIndex = 35;
-            this.txtPID.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 176);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
-            this.label2.TabIndex = 36;
-            this.label2.Text = "PatientID:";
             // 
             // Allergy
             // 

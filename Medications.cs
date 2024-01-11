@@ -138,7 +138,7 @@ namespace HalloweyMemorialHospital
             btnUndo.Visible = true;
             btnExitMode.Visible = true;
 
-            ClearTextboxes();
+            
             SetControlstoReadOnly(false);
         }
 
